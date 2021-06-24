@@ -9,7 +9,6 @@ const pool = new Pool({
   database: "lightbnb",
 });
 
-
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
@@ -54,9 +53,12 @@ exports.getUserWithId = getUserWithId;
 
 const addUser = (user) => {
   return pool
-    .query(`INSERT INTO users (name, email, password)
+    .query(
+      `INSERT INTO users (name, email, password)
     VALUES 
-    ($1, $2, $3) RETURNING *`, [user.name, user.email, user.password])
+    ($1, $2, $3) RETURNING *`,
+      [user.name, user.email, user.password]
+    )
     .then((result) => {
       return result.rows;
     })
@@ -73,9 +75,31 @@ exports.addUser = addUser;
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
+// const getAllReservations = function (guest_id, limit = 10) {
+//   return getAllProperties(null, 2);
+// };
+
 const getAllReservations = function (guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  return pool
+    .query(
+      `SELECT properties.*, reservations.*, avg(rating) as average_rating
+      FROM reservations
+      JOIN properties ON reservations.property_id = properties.id
+      JOIN property_reviews ON properties.id = property_reviews.property_id
+      WHERE reservations.guest_id = $1
+      AND reservations.end_date < now()::date
+      GROUP BY properties.id, reservations.id
+      ORDER BY reservations.start_date;`,
+      [guest_id]
+    )
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
+
 exports.getAllReservations = getAllReservations;
 
 /// Properties
