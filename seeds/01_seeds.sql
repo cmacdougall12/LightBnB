@@ -1,9 +1,10 @@
 -- Guest Add
 INSERT INTO users (name, email, password)
 VALUES 
-('Cam MacDougall', 'a@a.com', '2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u'),
-('Julia Pyke', 'b@a.com', '2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u'),
-('Revy', 'c@a.com', '2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
+('Cam MacDougall', 'a@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
+('Julia Pyke', 'b@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
+('Revy', 'c@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
+
 
 -- Properties Add
 INSERT INTO properties (title,description,thumbnail_photo_url,cover_photo_url, cost_per_night,parking_spaces,number_of_bathrooms,number_of_bedrooms, country, street, city, province, post_code)
